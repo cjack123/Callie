@@ -1,11 +1,31 @@
+import { useReducer } from "react"
 import "./Callie.css"
 
+const ACTIONS = {
+  ADD_DIGIT: "add-Digit",
+  CHOOSE_OPERATION: "choose-operation",
+  CLEAR: "clear",
+  DELETE: "delete",
+  EVALUATE: "evaluate",
+}
+
+function reducer(state, { type, payload}) {
+  switch (type) {
+    case ACTIONS.ADD_DIGIT:
+      return {
+        ...state,
+        currentOperand: `${currentOperand}${payload.digit}`,
+      }
+  }
+}
+
 function Callie() {
+  const [{ currentOperand, previousOperand, operation }, dispatch] = useReducer(reducer)
   return (
     <div className="calculator-grid">
       <div className="output">
-        <div className="previous-operand">123,123*</div>
-        <div className="current-operand">456,456</div>
+        <div className="previous-operand">{previousOperand} {operation}</div>
+        <div className="current-operand">{currentOperand}</div>
         </div>
         <button className="span-two">AC</button>
         <button>DEL</button>
